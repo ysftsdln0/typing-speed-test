@@ -2,23 +2,50 @@
 
 import { useState, useEffect, useRef } from 'react';
 import Statistics from './Statistics';
+import { useTheme } from '@/context/ThemeContext';
 
 const wordList = [
-  'ev', 'su', 'ben', 'sen', 'gel', 'git', 'al', 'ver', 'gün', 'ay',
-  'yıl', 'iyi', 'kötü', 'güzel', 'çok', 'az', 'var', 'yok', 'evet', 'hayır',
-  'anne', 'baba', 'kardeş', 'abla', 'abi', 'dede', 'nine', 'amca', 'teyze', 'hala',
-  'okul', 'kitap', 'kalem', 'masa', 'sandalye', 'kapı', 'pencere', 'oda', 'ev', 'bahçe',
-  'ekmek', 'su', 'çay', 'süt', 'yemek', 'meyve', 'sebze', 'et', 'balık', 'tavuk',
-  'sabah', 'öğle', 'akşam', 'gece', 'bugün', 'yarın', 'dün', 'şimdi', 'sonra', 'önce',
-  'sıcak', 'soğuk', 'büyük', 'küçük', 'uzun', 'kısa', 'ağır', 'hafif', 'hızlı', 'yavaş',
-  'kırmızı', 'mavi', 'yeşil', 'sarı', 'siyah', 'beyaz', 'mor', 'pembe', 'turuncu', 'gri',
-  'bir', 'iki', 'üç', 'dört', 'beş', 'altı', 'yedi', 'sekiz', 'dokuz', 'on',
-  'uyku', 'oyun', 'spor', 'müzik', 'film', 'dans', 'resim', 'yazı', 'şarkı', 'hikaye'
+  'almak', 'yani', 'bakmak', 'sadece', 'gibi', 'sormak', 'bakmak', 'gün', 'sağlamak', 'anlatmak',
+  'süre', 'göre', 'olay', 'el', 'birbiri', 'sadece', 'şey', 'daha', 'koymak', 'yan',
+  'yapmak', 'insan', 'sağlamak', 'yapmak', 'yazmak', 'baba', 'durum', 'sonuç', 'büyük', 'yıl',
+  'biraz', 'kendi', 'dünya', 'kapı', 'ama', 'öyle', 'adam', 'yol', 'ara', 'onlar',
+  'gibi', 'bulunmak', 'su', 'hiç', 'dünya', 'önemli', 'kalmak', 'göz', 'atmak', 'gelmek',
+  'yaşamak', 'kitap', 'birbiri', 'kadar', 'bugün', 'devlet', 'sen', 'durmak', 'ürün', 'alt',
+  'uzun', 'biri', 'bile', 'bilgi', 'bunlar', 'doğru', 'anlatmak', 'hayat', 'zaman', 'bile',
+  'durmak', 'ad', 'değil', 'anne', 'az', 'neden', 'duymak', 'sahip', 'ad', 'yüz',
+  'fazla', 'kullanılmak', 'birlikte', 'iyi', 'hem', 'iş', 'beklemek', 'şey', 'neden', 'son',
+  'girmek', 'ile', 'ya', 'o', 'ad', 'diye', 'süre', 'an', 'saat', 'yemek',
+  'demek', 'yaş', 'bırakmak', 'iyi', 'büyük', 'işte', 'biraz', 'yapmak', 'tutmak', 'göre',
+  'bulmak', 'geçmek', 'vermek', 'göre', 'koymak', 'bütün', 'iki', 'çünkü', 'ses', 'bazı',
+  've', 'ilk', 'kullanmak', 'ev', 'adam', 'karşı', 'çocuk', 'olmak', 'bunu', 'istemek',
+  'sorun', 'el', 'başlamak', 'bulunmak', 'siz', 'gitmek', 'sıra', 'var', 'arkadaş', 'hep',
+  'iş', 'beklemek', 'görmek', 'bulmak', 'dönem', 'gün', 'yok', 'hiçbir', 'yol', 'hem',
+  'dış', 'bugün', 'kadın', 'konuşmak', 'bunun', 'el', 'konu', 'etmek', 'verilmek', 'bunlar',
+  'şu', 'bir', 'ilk', 'karşı', 'görmek', 'bir', 'çocuk', 'bilgi', 'ya', 'söz',
+  'büyük', 'tek', 'dönmek', 'göz', 'alınmak', 'şu', 'çekmek', 'tek', 'ile', 'iki',
+  'zaman', 'orta', 'kişi', 'onun', 'ara', 'girmek', 'diğer', 'çıkarmak', 'olay', 'demek',
+  'öyle', 'düşmek', 'zaman', 'veya', 'ben', 'aynı', 'nasıl', 'kullanmak', 'çıkarmak', 'bunu',
+  'yani', 'sevmek', 'gerekmek', 'onun', 'arkadaş', 'ki', 'koymak', 'yan', 'yine', 'birlikte',
+  'ise', 'üzerine', 'olay', 'sistem', 'çıkmak', 'uzun', 'değil', 'anne', 'alan', 'su',
+  'gelmek', 'tutmak', 'kişi', 'bırakmak', 'söz', 'içinde', 'dönmek', 'şimdi', 'baba', 'taraf',
+  'yaşamak', 'içinde', 'diye', 'adam', 'yol', 'yaş', 'kullanmak', 'anne', 'hiçbir', 'yine',
+  'bilmek', 'biz', 'çünkü', 'bazı', 'demek', 'yeni', 'yapılmak', 'biz', 'kız', 'yine',
+  'en', 'hep', 'geçmek', 'durmak', 'yer', 'verilmek', 'az', 'başlamak', 'göstermek', 'kullanılmak',
+  'bunun', 'kim', 'çok', 'ile', 'iç', 'birbiri', 'gece', 'açmak', 'ev', 'sonra',
+  'durum', 'konu', 'içinde', 'sorun', 'bunu', 'hemen', 'yıl', 'ancak', 'bakmak', 'bu',
+  'başlamak', 'hiçbir', 'diğer', 'önce', 'diğer', 'dış', 'vermek', 'nasıl', 'bulmak', 'hiç',
+  'var', 'çıkarmak', 'açmak', 'çok', 'her', 'oturmak', 'kız', 'en', 'ilk', 'şimdi',
+  'bırakmak', 'yer', 'ay', 'az', 'almak', 'zor', 'çok', 'işte', 'burada', 'bütün',
+  'söylemek', 'göz', 'açmak', 'yapılmak', 'hayat', 'o', 'baş', 'olmak', 'üzerinde', 'siz',
+  'çünkü', 'ama', 'ya', 'durum', 'tüm', 'insan', 'kendi', 'verilmek', 'uzun', 'karşı',
+  'biraz', 'ama', 'böyle', 'duymak', 'başka', 'yüz', 'bile', 'vermek', 'zor', 'sorun',
+  'sormak', 'yıl', 'konuşmak', 'dış', 'aynı', 'çünkü', 'dünya', 'orta', 'duymak', 'saat',
+  'dünya', 'hep'
 ];
 
 const generateText = () => {
   const shuffled = [...wordList].sort(() => Math.random() - 0.5);
-  return shuffled.slice(0, 200).join(' ');
+  return shuffled.join(' ');
 };
 
 interface TestStats {
@@ -27,6 +54,7 @@ interface TestStats {
 }
 
 const TypingTest = () => {
+  const { theme } = useTheme();
   const [text, setText] = useState('');
   const [input, setInput] = useState('');
   const [timeLeft, setTimeLeft] = useState(60);
@@ -150,18 +178,18 @@ const TypingTest = () => {
     const words = text.split(' ');
     const currentWordIndex = currentIndex;
     const currentTyping = input.trim();
-    const wordsPerLine = 10;
+    const wordsPerLine = 7;
     const currentLineIndex = Math.floor(currentWordIndex / wordsPerLine);
     const visibleLines = [currentLineIndex, currentLineIndex + 1];
     
     return (
-      <div className="font-mono text-lg leading-relaxed">
+      <div className="font-mono text-2xl leading-loose">
         {visibleLines.map(lineIndex => {
           const lineStart = lineIndex * wordsPerLine;
           const lineWords = words.slice(lineStart, lineStart + wordsPerLine);
           
           return (
-            <div key={lineIndex} className="flex flex-wrap gap-2 mb-2">
+            <div key={lineIndex} className="flex flex-wrap gap-3 mb-6 justify-center items-center min-h-[60px]">
               {lineWords.map((word, index) => {
                 const globalIndex = lineStart + index;
                 
@@ -171,8 +199,8 @@ const TypingTest = () => {
                     <span
                       key={index}
                       className={`${
-                        isCorrect ? 'text-green-500' : 'text-red-500'
-                      }`}
+                        isCorrect ? 'text-green-600 dark:text-green-400' : 'text-red-600 dark:text-red-400'
+                      } px-2 py-1`}
                     >
                       {word}
                     </span>
@@ -184,26 +212,26 @@ const TypingTest = () => {
                   for (let i = 0; i < word.length; i++) {
                     if (i < currentTyping.length) {
                       if (currentTyping[i] === word[i]) {
-                        displayWord += `<span class="text-green-500">${word[i]}</span>`;
+                        displayWord += `<span class="${theme === 'dark' ? 'text-green-400' : 'text-green-600'}">${word[i]}</span>`;
                       } else {
-                        displayWord += `<span class="text-red-500">${word[i]}</span>`;
+                        displayWord += `<span class="${theme === 'dark' ? 'text-red-400' : 'text-red-600'}">${word[i]}</span>`;
                       }
                     } else {
-                      displayWord += `<span class="text-gray-300">${word[i]}</span>`;
+                      displayWord += `<span class="${theme === 'dark' ? 'text-gray-400' : 'text-gray-500'}">${word[i]}</span>`;
                     }
                   }
                   
                   return (
                     <span 
                       key={index} 
-                      className="bg-[#0F172A] px-1 rounded"
+                      className="bg-gray-100 dark:bg-gray-800 px-3 py-1 rounded"
                       dangerouslySetInnerHTML={{ __html: displayWord }}
                     />
                   );
                 }
                 
                 return (
-                  <span key={index} className="text-gray-500">
+                  <span key={index} className="text-gray-900 dark:text-gray-300 px-2 py-1">
                     {word}
                   </span>
                 );
@@ -216,27 +244,27 @@ const TypingTest = () => {
   };
 
   return (
-    <div className="p-8 space-y-8">
-      <div className="space-y-8">
+    <div className="p-12 space-y-12 bg-white dark:bg-gray-900 text-gray-900 dark:text-white rounded-3xl transition-colors duration-200">
+      <div className="space-y-12">
         {!testComplete ? (
           <>
             {/* Timer */}
             <div className="flex items-center justify-center">
               <div className="relative">
                 <div className={`text-7xl font-bold ${
-                  timeLeft <= 10 ? 'animate-pulse text-red-500' : 'text-white'
+                  timeLeft <= 10 ? 'animate-pulse text-red-500 dark:text-red-400' : 'text-gray-900 dark:text-white'
                 }`}>
                   {timeLeft}
                 </div>
-                <div className="absolute -bottom-4 left-1/2 transform -translate-x-1/2 text-gray-400 text-sm font-medium tracking-wider">
+                <div className="absolute -bottom-4 left-1/2 transform -translate-x-1/2 text-gray-500 dark:text-gray-400 text-sm font-medium tracking-wider">
                   saniye
                 </div>
               </div>
             </div>
 
             {/* Text Area */}
-            <div className="bg-gray-900/50 backdrop-blur-sm p-8 rounded-2xl border border-gray-800/50 shadow-xl">
-              <div className="prose prose-lg prose-invert max-w-none">
+            <div className="bg-gray-50 dark:bg-gray-800/50 backdrop-blur-sm p-12 rounded-3xl border border-gray-200 dark:border-gray-700/50 shadow-xl max-w-7xl mx-auto">
+              <div className="prose prose-lg dark:prose-invert max-w-none">
                 {renderText()}
               </div>
               <input
@@ -244,13 +272,13 @@ const TypingTest = () => {
                 type="text"
                 value={input}
                 onChange={handleInputChange}
-                className="w-full mt-6 bg-gray-800/50 text-white p-4 rounded-xl border border-gray-700/50 focus:outline-none focus:ring-2 focus:ring-blue-500/50 transition-all duration-200 font-mono text-lg"
+                className="w-full mt-8 bg-white dark:bg-gray-800/50 text-gray-900 dark:text-white p-4 rounded-xl border border-gray-200 dark:border-gray-700/50 focus:outline-none focus:ring-2 focus:ring-blue-500/50 transition-all duration-200 font-mono text-2xl"
                 placeholder="Yazmaya başlayın..."
               />
             </div>
 
             {/* Instructions */}
-            <div className="text-center text-gray-400 text-sm space-y-2 animate-fade-in">
+            <div className="text-center text-gray-500 dark:text-gray-400 text-sm space-y-2 animate-fade-in">
             </div>
           </>
         ) : (
