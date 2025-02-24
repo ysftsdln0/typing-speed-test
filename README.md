@@ -1,14 +1,28 @@
-# Typing Speed Test
+# Türkçe Yazma Hızı Testi
 
-Bu proje, kullanıcıların yazma hızlarını test edebilecekleri modern bir web uygulamasıdır. Next.js ve TypeScript kullanılarak geliştirilmiştir.
+Modern ve kullanıcı dostu bir Türkçe yazma hızı testi uygulaması.
+
+## Versiyonlar
+
+### v0.5 (Güncel)
+- Karanlık mod desteği
+- Geliştirilmiş tasarım
+- Tema değiştirme özelliği
+- [Ana Branch](https://github.com/ysftsdln0/typing-speed-test/tree/main)
+
+### v0.1 (İlk Versiyon)
+- Temel yazma hızı testi
+- Basit ve sade tasarım
+- [Demo Branch](https://github.com/ysftsdln0/typing-speed-test/tree/demo-v0.1)
 
 ## Özellikler
 
-- Gerçek zamanlı yazma hızı testi
-- WPM (Words Per Minute) hesaplama
-- Doğruluk oranı takibi
-- Modern ve kullanıcı dostu arayüz
-- İstatistik görüntüleme
+- Türkçe kelime havuzu
+- Anlık WPM (Words Per Minute) hesaplama
+- Doğruluk oranı
+- Doğru/yanlış karakter sayısı
+- 60 saniyelik test süresi
+- Responsive tasarım
 
 ## Teknolojiler
 
@@ -19,35 +33,23 @@ Bu proje, kullanıcıların yazma hızlarını test edebilecekleri modern bir we
 
 ## Kurulum
 
-1. Projeyi klonlayın:
 ```bash
-git clone [repo-url]
-```
+# Projeyi klonlayın
+git clone https://github.com/ysftsdln0/typing-speed-test.git
 
-2. Proje dizinine gidin:
-```bash
+# Proje dizinine gidin
 cd typing-speed-test
-```
 
-3. Bağımlılıkları yükleyin:
-```bash
+# Bağımlılıkları yükleyin
 npm install
-# veya
-yarn install
-```
 
-4. Geliştirme sunucusunu başlatın:
-```bash
+# Geliştirme sunucusunu başlatın
 npm run dev
-# veya
-yarn dev
 ```
-
-5. Tarayıcınızda [http://localhost:3000](http://localhost:3000) adresini açın.
 
 ## Katkıda Bulunma
 
-1. Bu repoyu fork edin
+1. Bu projeyi fork edin
 2. Yeni bir branch oluşturun (`git checkout -b feature/amazing-feature`)
 3. Değişikliklerinizi commit edin (`git commit -m 'feat: Add amazing feature'`)
 4. Branch'inizi push edin (`git push origin feature/amazing-feature`)
@@ -55,4 +57,4 @@ yarn dev
 
 ## Lisans
 
-MIT License 
+Bu proje MIT lisansı altında lisanslanmıştır. Daha fazla bilgi için `LICENSE` dosyasına bakın. 
